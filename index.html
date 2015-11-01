@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Lua0 by wangfakang</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Lua0</h1>
+        <p class="header">lua simple study</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/wangfakang/lua0/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/wangfakang/lua0/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/wangfakang/lua0">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/wangfakang">wangfakang</a></p>
+
+
+      </header>
+      <section>
+        <p><code>这篇文章我不知道该不该写：</code><br>
+　　由于我也是接触lua不久［还是之前项目需要，于是就边写代码边学习］，其实我每次学习一门新的语言的时候
+　　（我不会刻意的去学习），我觉得语言本身并不是问题而是想法［算法］，比如你要去进行切割字符串，你知道
+　　在go语言中有split这个函数，那么类似lua中是不是也应该有恩，这个时候只需要打开lua的文档进行search就ok[
+　　当然这个地方又是考验一个人search的功底了就好像gg输入的关键字一样]好了闲话就不多说了：      </p>
+
+<p>lua学习的过程：<br>
+　首先lua是一个动态类型的语言，是解释执行的．<br>
+　　值得注意的是lua的语法是很简单的：   </p>
+
+<h1>
+<a id="1基础数据类型-------" class="anchor" href="#1%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-------" aria-hidden="true"><span class="octicon octicon-link"></span></a>1.基础数据类型       </h1>
+
+<ul>
+<li>number<br>
+number类型用于表示实数，c/c++里面的double类型一样。可以使用数学函数math.floor（向下取整）和math.ceil（向上取整）
+进行取整操作。<br>
+</li>
+</ul>
+
+<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> order <span class="pl-k">=</span> <span class="pl-c1">3.0</span>
+<span class="pl-k">local</span> score <span class="pl-k">=</span> <span class="pl-c1">98.5</span>
+<span class="pl-c1">print</span>(<span class="pl-c1">math.floor</span>(order))   <span class="pl-c">--&gt;output:3   </span>
+<span class="pl-c1">print</span>(<span class="pl-c1">math.ceil</span>(score))    <span class="pl-c">--&gt;output:99 </span></pre></div>
+
+<ul>
+<li>nil（空）</li>
+</ul>
+
+<p>nil是一种类型Lua将nil用于表示“无效值”。一个变量在第一次赋值前的默认值是nil，将nil赋予给一个全局变量就等同于删除它。</p>
+
+<p>local num
+print(num)        --&gt;output:nil</p>
+
+<p>num = 100
+print(num)        --&gt;output:100</p>
+
+<p>boolean（布尔）</p>
+
+<p>布尔类型，可选值true/false；Lua中nil和false为“假”，其它所有值均为“真”。</p>
+
+<ul>
+<li><p>string（字符串）
+注意该类型：和c++中的字符串是不一样的，不可以进行修改字符串中的某个值，也不可以访问相应下标的字符．
+在lua中使用了一中引用的方式来存储字符串．</p></li>
+<li><p>table(表)</p></li>
+</ul>
+
+<p>table类型实现了“关联数组”。“关联数组” 是一种具有特殊索引方式的数组，索引可为字符串string或(整)数number类型。
+注意：其下表是从１开始的［若没有使用其他的作为ｋｅｙ］．其中表也是lua中唯一一个数据结构，很强大的．</p>
+
+<ul>
+<li>function(函数)</li>
+</ul>
+
+<p>在Lua中函数 也是一种数据类型，函数可以存储在变量中，可以通过参数传递给其他函数，还可以作为其他函数的返回值。
+如下：
+function foo() ... end</p>
+
+<p>等价于  </p>
+
+<p>foo = function () ... end</p>
+
+<h1>
+<a id="2值得注意的是lua中的逻辑运算发和其他语言中是不一样的" class="anchor" href="#2%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%98%AFlua%E4%B8%AD%E7%9A%84%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E5%8F%91%E5%92%8C%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%98%AF%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.值得注意的是lua中的逻辑运算发和其他语言中是不一样的：</h1>
+
+<p>　在其他语言中其逻辑运算最终都是返回一个bool类型的值，而在lua中则不是的，还有就是在lua中只有false和nil是假，
+其他的都是真．<br>
+　 在lua中其逻辑运算符如下：<br>
+　a = a or b  这个的含义等价于：　a = a ? a:b; 相当于给a 一个默认值，如果a是有值的话则赋值ａ．<br>
+　 在lua中没有三目运算符，但是可以这样写：　val =  a and b or c<br>
+  注意：其实上面这么写的三目运算符还有点瑕疵：假如b此时的值是nil则得不到b而是ｃ<br>
+　改善后：(a and {b} or {c})[1] 这样即使b是nil也可以取到了，主要利用刚才说的原则－－条件假的只有false 和　nil      </p>
+
+<p>说白了在lua中的逻辑运算最终返回的是一个值，不一定只是bool而要看其参加运算的变量．    </p>
+
+<h1>
+<a id="3利用lua中的table可以做很多事情" class="anchor" href="#3%E5%88%A9%E7%94%A8lua%E4%B8%AD%E7%9A%84table%E5%8F%AF%E4%BB%A5%E5%81%9A%E5%BE%88%E5%A4%9A%E4%BA%8B%E6%83%85" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.利用lua中的table可以做很多事情</h1>
+
+<p>　　1.利用table可以做一个hash
+  2.可以做一个驱动表
+　　3.还可以行面向对象的编程[把数据放到表中以及函数]．
+　　4.设置元表等［相当于一种重载］</p>
+
+<h1>
+<a id="4lua可以与c-c等语言之间的交互" class="anchor" href="#4lua%E5%8F%AF%E4%BB%A5%E4%B8%8Ec-c%E7%AD%89%E8%AF%AD%E8%A8%80%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%A4%E4%BA%92" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.lua可以与c c++等语言之间的交互：</h1>
+
+<p>　　主要就是在lua和c之间有一个栈进行保存传递的参数，然后根据相应的约定进行运算．后面文章会详细讲解．</p>
+
+<h1>
+<a id="5ffi机制" class="anchor" href="#5ffi%E6%9C%BA%E5%88%B6" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.ffi机制</h1>
+
+<p>　The FFI library allows calling external C functions and using C data structures from pure Lua code. 官方的介绍：
+FFI库，是LuaJIT中最重要的一个扩展库。它允许从纯Lua代码调用外部C函数，使用C数据结构。有了它，就不用再像Lua标准math库一样，编写Lua扩展库。把开发者从开发Lua扩展C库（语言/功能绑定库）的繁重工作中释放出来。　
+当然这个要使用luajit才可以的．
+如下：
+local ffi = require("ffi")
+ffi.cdef[[
+int printf(const char *fmt, ...);
+]]
+ffi.C.printf("Hello %s!", "world")</p>
+
+<h1>
+<a id="6lua中的与的区别" class="anchor" href="#6lua%E4%B8%AD%E7%9A%84%E4%B8%8E%E7%9A%84%E5%8C%BA%E5%88%AB" aria-hidden="true"><span class="octicon octicon-link"></span></a>6.lua中的.与：的区别</h1>
+
+<div class="highlight highlight-source-lua"><pre><span class="pl-k">local</span> str <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>abcde<span class="pl-pds">"</span></span>
+<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>case 1:<span class="pl-pds">"</span></span>, str:<span class="pl-c1">sub</span>(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>))
+<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>case 2:<span class="pl-pds">"</span></span>, str.<span class="pl-c1">sub</span>(str, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>))</pre></div>
+
+<p>输出结果一样：
+case 1: ab
+case 2: ab
+使用:就可以不用在传递自己了（self）.</p>
+
+<h1>
+<a id="欢迎一起交流学习-" class="anchor" href="#%E6%AC%A2%E8%BF%8E%E4%B8%80%E8%B5%B7%E4%BA%A4%E6%B5%81%E5%AD%A6%E4%B9%A0-" aria-hidden="true"><span class="octicon octicon-link"></span></a>欢迎一起交流学习 </h1>
+
+<p>在使用中有任何问题，欢迎反馈给我，可以用以下联系方式跟我交流</p>
+
+<ul>
+<li>邮件(1031379296#qq.com, 把#换成@)</li>
+<li>QQ: 1031379296</li>
+<li>weibo: <a href="http://weibo.com/u/2786211992/home">@王发康</a>
+</li>
+</ul>
+
+<h1>
+<a id="thx" class="anchor" href="#thx" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thx</h1>
+
+<ul>
+<li>chunshengsterATgmail.com</li>
+</ul>
+
+<h1>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span class="octicon octicon-link"></span></a>Author</h1>
+
+<ul>
+<li>Linux\nginx\golang\c\c++爱好者</li>
+<li>欢迎一起交流  一起学习# </li>
+<li>Others say good and Others good</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("lua simple study table ffi metatable ");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
